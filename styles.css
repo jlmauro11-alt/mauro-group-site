@@ -34,3 +34,77 @@ a:hover { color: #fff; text-decoration: none; }
   border-bottom: 1px solid rgba(255,255,255,0.55);
   padding-bottom: 4px;
 }
+/* Page layout */
+.page {
+  min-height: 100vh;
+  background: radial-gradient(1200px 800px at 50% -20%, rgba(255,255,255,0.06), transparent 55%),
+              #000;
+  color: rgba(255,255,255,0.88);
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+
+.kicker {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-bottom: 12px;
+}
+
+.h1 {
+  font-size: 44px;
+  line-height: 1.08;
+  margin: 0 0 14px 0;
+}
+.lead {
+  max-width: 720px;
+  font-size: 16px;
+  line-height: 1.65;
+  opacity: 0.8;
+}
+
+.hr {
+  height: 1px;
+  background: rgba(255,255,255,0.10);
+  margin: 36px 0;
+}
+
+/* Grid + cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 18px;
+}
+
+.card {
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.card h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+}
+.card p {
+  margin: 0;
+  opacity: 0.78;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.col-6 { grid-column: span 6; }
+.col-4 { grid-column: span 4; }
+.col-8 { grid-column: span 8; }
+.col-12 { grid-column: span 12; }
+
+@media (max-width: 900px) {
+  .h1 { font-size: 34px; }
+  .col-6, .col-4, .col-8 { grid-column: span 12; }
+}
