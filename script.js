@@ -1,29 +1,89 @@
+// script.js — replace the entire file with this
+
 (() => {
-  // Active nav link
-  const path = window.location.pathname.split("/").pop() || "index.html";
-  document.querySelectorAll(".nav-links a").forEach(a => {
-    const href = (a.getAttribute("href") || "").trim();
-    if (href === path) a.classList.add("active");
-  });
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Scroll reveal targets
-  const targets = [
-    ...document.querySelectorAll(".kicker, .h1, .lead, .hr, .btn"),
-    ...document.querySelectorAll(".card"),
-    ...document.querySelectorAll(".footer, .footer *")
-  ];
+  // ---------------------------------------
+  // Footer year (safe on all pages)
+  // ---------------------------------------
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Mark hidden before observing (prevents flicker)
-  targets.forEach(el => el.classList.add("reveal"));
+  // ---------------------------------------
+  // Scroll reveal (elements with .reveal)
+  // ---------------------------------------
+  const revealEls = Array.from(document.querySelectorAll(".reveal"));
+  if (revealEls.length && !reduceMotion) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("reveal-in");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    // If reduced-motion OR none found, just show them
+    revealEls.forEach((el) => el.classList.add("reveal-in"));
+  }
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("reveal-in");
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
+  // ---------------------------------------
+  // HERO PARALLAX (homepage)
+  // Works if you have:
+  //  - .hero
+  //  - .hero-video (or a hero background element)
+  //  - .hero-overlay
+  //  - .hero-content
+  // ---------------------------------------
+  const hero = document.querySelector(".hero");
+  if (!hero || reduceMotion) return;
 
-  targets.forEach(el => io.observe(el));
+  const heroVideo = hero.querySelector(".hero-video");
+  const heroOverlay = hero.querySelector(".hero-overlay");
+  const heroContent = hero.querySelector(".hero-content");
+
+  // Helper to clamp values
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+
+  let ticking = false;
+
+  const apply = () => {
+    ticking = false;
+
+    const rect = hero.getBoundingClientRect();
+    const vh = window.innerHeight || 1;
+
+    // progress: 0 when hero top at top, 1 when hero has scrolled out
+    const progress = clamp((-rect.top) / (rect.height || 1), 0, 1);
+
+    // Subtle depth layers
+    // Video moves slowest, overlay slightly, text slightly
+    const videoY = progress * 22;      // px
+    const overlayY = progress * 14;    // px
+    const contentY = progress * -10;   // px (slight lift as you scroll)
+
+    if (heroVideo) heroVideo.style.transform = `translate3d(0, ${videoY}px, 0) scale(1.03)`;
+    if (heroOverlay) heroOverlay.style.transform = `translate3d(0, ${overlayY}px, 0)`;
+    if (heroContent) heroContent.style.transform = `translate3d(0, ${contentY}px, 0)`;
+
+    // Add a tiny fade as it scrolls off
+    if (heroContent) heroContent.style.opacity = String(1 - progress * 0.25);
+  };
+
+  const onScroll = () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(apply);
+    }
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+
+  // Initial run
+  apply();
 })();
