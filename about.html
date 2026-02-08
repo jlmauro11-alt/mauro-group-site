@@ -7,12 +7,16 @@
   <meta name="description" content="About The Mauro Group — a private investment platform backing durable innovation." />
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body class="page">
+
+  <!-- NAV -->
   <header class="nav">
     <div class="nav-inner">
       <a href="index.html" aria-label="The Mauro Group">
         <img src="assets/logo.png" alt="The Mauro Group" style="height:22px; opacity:.9;">
       </a>
+
       <nav class="nav-links">
         <a href="about.html" class="active">About</a>
         <a href="investments.html">Investments</a>
@@ -21,9 +25,16 @@
     </div>
   </header>
 
+
+  <!-- CONTENT -->
   <main class="container">
+
     <div class="kicker">About</div>
-    <h1 class="h1">A modern investment platform built for volatility.</h1>
+
+    <h1 class="h1">
+      A modern investment platform built for volatility.
+    </h1>
+
     <p class="lead">
       The Mauro Group partners with founders, protocols, and operators building the next generation of critical infrastructure—
       across AI, digital assets, life sciences, and space. We focus on asymmetric upside, strong downside control, and disciplined execution.
@@ -31,7 +42,9 @@
 
     <div class="hr"></div>
 
+
     <div class="grid">
+
       <section class="card col-6">
         <h3>Investment Thesis</h3>
         <p>
@@ -70,9 +83,22 @@
           frontier bio, or space systems—reach out. We move quickly and value clarity.
         </p>
       </section>
+
     </div>
   </main>
 
+
+  <!-- FOOTER -->
+  <footer>
+    © <span id="year"></span> The Mauro Group. All rights reserved.
+  </footer>
+
+
+  <!-- SCRIPTS -->
   <script src="script.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
 </body>
 </html>
