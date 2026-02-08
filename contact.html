@@ -58,32 +58,34 @@
       <section class="card col-12">
         <h3>Quick message</h3>
         <p style="opacity:.75; margin-bottom:14px;">
-          This form uses your email client (mailto). If you want a real web form (recommended), we can wire it to Formspree or a serverless endpoint.
+          This form submits securely and sends to our inbox.
         </p>
 
-        <form action="mailto:hello@themaurogroup.com" method="post" enctype="text/plain">
+        <!-- REAL WEB FORM (Formspree) -->
+        <form class="webform" action="https://formspree.io/f/mbdajwlr" method="POST">
+          <input type="hidden" name="_subject" value="The Mauro Group — New website message" />
+          <!-- Honeypot spam trap (keep hidden / leave empty) -->
+          <input type="text" name="_gotcha" class="hp" autocomplete="off" tabindex="-1" />
+
           <div class="grid">
-            <div class="card col-6" style="padding:14px;">
-              <label style="display:block; font-size:12px; opacity:.7; margin-bottom:6px;">Name</label>
-              <input name="name" type="text"
-                style="width:100%; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,0.15);
-                background:rgba(0,0,0,0.35); color:#fff; outline:none;">
+            <div class="col-6">
+              <label class="label" for="name">Name</label>
+              <input class="input" id="name" name="name" type="text" placeholder="Your name" required />
             </div>
 
-            <div class="card col-6" style="padding:14px;">
-              <label style="display:block; font-size:12px; opacity:.7; margin-bottom:6px;">Email</label>
-              <input name="email" type="email"
-                style="width:100%; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,0.15);
-                background:rgba(0,0,0,0.35); color:#fff; outline:none;">
+            <div class="col-6">
+              <label class="label" for="email">Email</label>
+              <input class="input" id="email" name="email" type="email" placeholder="you@domain.com" required />
             </div>
 
-            <div class="card col-12" style="padding:14px;">
-              <label style="display:block; font-size:12px; opacity:.7; margin-bottom:6px;">Message</label>
-              <textarea name="message" rows="5"
-                style="width:100%; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,0.15);
-                background:rgba(0,0,0,0.35); color:#fff; outline:none;"></textarea>
+            <div class="col-12">
+              <label class="label" for="message">Message</label>
+              <textarea class="input textarea" id="message" name="message" rows="6" placeholder="How can we help?" required></textarea>
 
-              <button class="btn" type="submit">Send</button>
+              <div class="form-actions">
+                <button class="btn" type="submit">Send</button>
+                <span class="form-note">We typically respond within 1–2 business days.</span>
+              </div>
             </div>
           </div>
         </form>
