@@ -1,148 +1,167 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — The Mauro Group</title>
-  <meta name="description" content="Contact The Mauro Group for business inquiries, partnerships, and investment introductions." />
-  <link rel="canonical" href="https://themaurogroup.com/contact.html" />
 
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Contact — The Mauro Group" />
-  <meta property="og:description" content="Business inquiries and introductions." />
-  <meta property="og:url" content="https://themaurogroup.com/contact.html" />
-  <meta property="og:image" content="https://themaurogroup.com/og.png" />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      background:#000;color:#fff;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      min-height:100vh; overflow-x:hidden;
+    }
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Contact — The Mauro Group" />
-  <meta name="twitter:description" content="Business inquiries and introductions." />
-  <meta name="twitter:image" content="https://themaurogroup.com/og.png" />
+    .bg{position:fixed;inset:0;z-index:0;overflow:hidden;}
+    .bg video{
+      position:absolute;top:50%;left:50%;
+      width:120%;height:120%;
+      transform:translate(-50%,-50%);
+      object-fit:cover;opacity:0.30;
+    }
+    .bg::after{
+      content:"";position:absolute;inset:0;
+      background:
+        radial-gradient(circle at center, rgba(0,0,0,0.10) 0%, #000 82%),
+        linear-gradient(to bottom, rgba(0,0,0,0.62), rgba(0,0,0,0.9));
+    }
 
-  <link rel="icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <meta name="theme-color" content="#0b0f14" />
+    .nav{
+      position:fixed;top:0;left:0;right:0;z-index:10;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:18px 28px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.75), rgba(0,0,0,0));
+      backdrop-filter: blur(6px);
+    }
+    .brand{color:#fff;text-decoration:none;font-weight:650;letter-spacing:0.02em;opacity:0.95;}
+    .nav-links{display:flex;gap:18px;align-items:center;}
+    .nav-links a{color:rgba(255,255,255,0.78);text-decoration:none;font-size:0.95rem;}
+    .nav-links a:hover{color:rgba(255,255,255,0.98);}
 
-  <link rel="stylesheet" href="./styles.css" />
+    .wrap{position:relative;z-index:2;padding:110px 18px 70px;display:flex;justify-content:center;}
+    .panel{
+      width:min(900px,100%);
+      border:1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(12px);
+      border-radius:22px;
+      padding:34px 30px;
+      box-shadow:0 18px 60px rgba(0,0,0,0.45);
+      animation:fadeIn 700ms ease forwards;
+      opacity:0;transform:translateY(10px);
+    }
+
+    h1{font-size:2.2rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:12px;line-height:1.15;}
+    .sub{font-size:1.05rem;opacity:0.78;line-height:1.6;margin-bottom:22px;max-width:820px;}
+
+    .form{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top: 10px;
+    }
+    .form .full{grid-column: 1 / -1;}
+
+    label{
+      display:block;
+      font-size:0.85rem;
+      opacity:0.78;
+      margin-bottom:6px;
+    }
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      color:#fff;
+      outline:none;
+    }
+    textarea{min-height:140px;resize:vertical;}
+
+    .actions{
+      margin-top: 14px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:10px 16px;border-radius:999px;
+      text-decoration:none;font-size:0.95rem;
+      border:1px solid rgba(255,255,255,0.22);
+      color:#fff;background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(10px);
+      cursor:pointer;
+    }
+    .btn.primary{
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.35);
+    }
+    .hint{
+      font-size:0.9rem;
+      opacity:0.65;
+      line-height:1.5;
+    }
+
+    @keyframes fadeIn{to{opacity:1;transform:translateY(0);} }
+
+    @media (max-width: 900px){
+      .form{grid-template-columns:1fr;}
+      .nav{padding:14px 16px;}
+      .nav-links{gap:12px;}
+    }
+  </style>
 </head>
 
-<body class="page">
-  <div class="bg"></div>
-  <div class="grain"></div>
+<body>
+  <div class="bg">
+    <video autoplay muted loop playsinline>
+      <source src="assets/hero.mp4" type="video/mp4" />
+    </video>
+  </div>
 
   <header class="nav">
-    <div class="nav__inner">
-      <a class="brand" href="./index.html">
-        <span class="brand__mark"></span>
-        <span class="brand__text">The Mauro Group</span>
-      </a>
-      <nav class="nav__links">
-        <a class="nav__link" href="./about.html">About</a>
-        <a class="nav__link" href="./investments.html">Investments</a>
-        <a class="nav__link is-active" href="./contact.html">Contact</a>
-      </nav>
-    </div>
+    <a class="brand" href="index.html">The Mauro Group</a>
+    <nav class="nav-links">
+      <a href="about.html">About</a>
+      <a href="investments.html">Investments</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
 
-  <main class="container">
-    <section class="hero reveal">
-      <div class="hero__content">
-        <h1 class="h1">Contact</h1>
-        <p class="lead">
-          For business inquiries, partnerships, or introductions. Please include context and links where relevant.
-        </p>
-      </div>
+  <main class="wrap">
+    <section class="panel">
+      <h1>Contact</h1>
+      <p class="sub">
+        Send a note and we’ll respond quickly. If you have a deck or brief, include a link.
+      </p>
 
-      <div class="hero__panel card">
-        <h2 class="h3">Preferred details</h2>
-        <ul class="list">
-          <li>What you’re building and why now</li>
-          <li>Team background and differentiation</li>
-          <li>Traction / metrics</li>
-          <li>What you want (capital, advice, intros)</li>
-        </ul>
-      </div>
-    </section>
+      <!-- Static form (no backend). You can wire it to Formspree, Basin, or a serverless function later. -->
+      <form class="form" action="#" method="post" onsubmit="return false;">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" />
+        </div>
 
-    <section class="section reveal">
-      <div class="grid grid--2">
-        <form class="card form"
-          method="POST"
-          action="YOUR_FREEFORM_ENDPOINT"
-          accept-charset="UTF-8">
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@company.com" />
+        </div>
 
-          <h2 class="h3">Send a message</h2>
+        <div class="full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="What can we help with?"></textarea>
+        </div>
 
-          <label class="field">
-            <span class="field__label">Name</span>
-            <input class="field__input" type="text" name="name" autocomplete="name" required />
-          </label>
-
-          <label class="field">
-            <span class="field__label">Email</span>
-            <input class="field__input" type="email" name="email" autocomplete="email" required />
-          </label>
-
-          <label class="field">
-            <span class="field__label">Subject</span>
-            <input class="field__input" type="text" name="subject" placeholder="Intro / Partnership / Inquiry" />
-          </label>
-
-          <label class="field">
-            <span class="field__label">Message</span>
-            <textarea class="field__input field__textarea" name="message" rows="7" required></textarea>
-          </label>
-
-          <!-- Optional: Freeform supports redirect via hidden input if you configured it -->
-          <!-- <input type="hidden" name="_redirect" value="https://themaurogroup.com/contact.html?sent=1" /> -->
-
-          <button class="btn btn--primary btn--full" type="submit">Send</button>
-          <p class="muted small">We reply when there is a clear fit. Please keep intros concise and specific.</p>
-        </form>
-
-        <aside class="card">
-          <h2 class="h3">Alternative</h2>
-          <p class="muted">
-            If you prefer email, contact:
-          </p>
-          <p class="mono">
-            <a class="textlink" href="mailto:info@themaurogroup.com">info@themaurogroup.com</a>
-          </p>
-
-          <div class="divider"></div>
-
-          <h3 class="h4">Notes</h3>
-          <ul class="list">
-            <li>Attach links (deck, demo, GitHub) inside the message</li>
-            <li>Include timeline + funding status if applicable</li>
-            <li>No mass outreach</li>
-          </ul>
-        </aside>
-      </div>
-
-      <div id="sentBanner" class="banner" hidden>
-        <strong>Message sent.</strong> Thanks — we’ll reply if there’s a fit.
-      </div>
+        <div class="full actions">
+          <button class="btn primary" type="submit">Send</button>
+          <span class="hint">This form is currently static. Tell me what email you want it to deliver to and I’ll wire it up.</span>
+        </div>
+      </form>
     </section>
   </main>
-
-  <footer class="footer">
-    <div class="footer__inner container">
-      <span>© <span id="year"></span> The Mauro Group</span>
-      <span class="footer__sep">•</span>
-      <a class="footer__link" href="./about.html">About</a>
-    </div>
-  </footer>
-
-  <script src="./script.js" defer></script>
-  <script>
-    // Optional UX: show a banner if redirected back with ?sent=1
-    (function(){
-      const p = new URLSearchParams(window.location.search);
-      if (p.get("sent") === "1") {
-        const b = document.getElementById("sentBanner");
-        if (b) b.hidden = false;
-      }
-    })();
-  </script>
 </body>
 </html>
