@@ -445,3 +445,29 @@ a:hover{ color:#fff; }
   .footer-inner{ grid-template-columns:1fr; }
   .footer-cols{ grid-template-columns:1fr; }
 }
+/* =========================================
+   CARD CURSOR GLOW (PREMIUM)
+   ========================================= */
+
+.card{
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: radial-gradient(
+    600px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255,255,255,0.12),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events:none;
+}
+
+.card:hover::before{
+  opacity: 1;
+}
