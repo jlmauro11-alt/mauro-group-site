@@ -34,54 +34,67 @@
         Send a note and we’ll respond quickly. If you have a deck or brief, include a link.
       </p>
 
-      <!-- Email form -->
-      <form
-        class="form"
-        action="mailto:private0@themaurogroup.com"
-        method="post"
-        enctype="text/plain"
-      >
+      <!-- Contact inputs -->
+      <div class="form">
         <div>
           <label for="name">Name</label>
-          <input
-            id="name"
-            name="Name"
-            type="text"
-            placeholder="Your name"
-            required
-          />
+          <input id="name" type="text" placeholder="Your name" />
         </div>
 
         <div>
           <label for="email">Email</label>
-          <input
-            id="email"
-            name="Email"
-            type="email"
-            placeholder="you@company.com"
-            required
-          />
+          <input id="email" type="email" placeholder="you@company.com" />
         </div>
 
         <div class="full">
           <label for="message">Message</label>
-          <textarea
-            id="message"
-            name="Message"
-            placeholder="What can we help with?"
-            required
-          ></textarea>
+          <textarea id="message" placeholder="What can we help with?"></textarea>
         </div>
 
         <div class="full actions">
-          <button class="btn primary" type="submit">Send Email</button>
+          <a class="btn primary" id="sendEmail" href="mailto:private0@themaurogroup.com">
+            Send Email
+          </a>
           <span class="hint">
-            This opens your email app and sends directly to
-            private0@themaurogroup.com.
+            This opens your email app and sends directly to private0@themaurogroup.com.
           </span>
         </div>
-      </form>
+      </div>
     </section>
   </main>
+
+  <!-- Safe mailto builder (Safari-compatible) -->
+  <script>
+    (function () {
+      const to = "private0@themaurogroup.com";
+      const link = document.getElementById("sendEmail");
+
+      function enc(v) {
+        return encodeURIComponent(v || "");
+      }
+
+      function updateMailto() {
+        const name = document.getElementById("name")?.value || "";
+        const email = document.getElementById("email")?.value || "";
+        const message = document.getElementById("message")?.value || "";
+
+        const subject = `Website inquiry${name ? " — " + name : ""}`;
+
+        const body =
+`Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+`;
+
+        link.href =
+          `mailto:${to}?subject=${enc(subject)}&body=${enc(body)}`;
+      }
+
+      // Build the email link right before opening mail
+      link.addEventListener("click", updateMailto);
+    })();
+  </script>
 </body>
 </html>
