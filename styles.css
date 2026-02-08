@@ -53,7 +53,7 @@ a:hover{ color:#fff; }
   font-size:13px;
   letter-spacing:.06em;
   margin-left:20px;
-  opacity:.75;
+  opacity:.7;
   text-transform:uppercase;
 }
 
@@ -110,17 +110,22 @@ a:hover{ color:#fff; }
   font-size:52px;
   line-height:1.08;
   margin:0 0 18px;
+  font-weight:600;
+  letter-spacing:.015em;
+  max-width:820px;
 }
 
 .hero-content p{
-  max-width:560px;
+  max-width:520px;
   font-size:17px;
   line-height:1.6;
-  opacity:.78;
+  opacity:.72;
 }
 
 
-/* BUTTON */
+/* =========================================================
+   BUTTON
+   ========================================================= */
 
 .btn{
   display:inline-block;
@@ -140,6 +145,12 @@ a:hover{ color:#fff; }
   background:rgba(255,255,255,.06);
   border-color:rgba(255,255,255,.6);
   box-shadow:0 12px 40px rgba(0,0,0,.55);
+}
+
+.btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+  transform:none !important;
 }
 
 
@@ -172,6 +183,8 @@ a:hover{ color:#fff; }
   font-size:44px;
   line-height:1.1;
   margin:0 0 18px;
+  font-weight:600;
+  letter-spacing:.01em;
 }
 
 .lead{
@@ -222,81 +235,48 @@ a:hover{ color:#fff; }
 
 
 /* =========================================================
-   MOBILE
+   CINEMATIC HERO FADE-IN
    ========================================================= */
 
-@media (max-width:900px){
-
-  .hero-content{ padding:110px 20px 80px; }
-
-  .hero-content h1{ font-size:38px; }
-
-  .h1{ font-size:34px; }
-
-  .col-6,
-  .col-4,
-  .col-8{ grid-column:span 12; }
-}
-/* =========================================
-   CINEMATIC HERO FADE-IN
-   ========================================= */
-
 @keyframes heroFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity:0; transform:translateY(18px); }
+  to { opacity:1; transform:translateY(0); }
 }
 
-/* animate hero text pieces separately */
 .hero-content > * {
-  opacity: 0;
-  animation: heroFadeUp 1.2s ease forwards;
+  opacity:0;
+  animation:heroFadeUp 1.2s ease forwards;
 }
 
-/* stagger timing for luxury feel */
-.hero-logo { animation-delay: 0.2s; }
-.hero-content h1 { animation-delay: 0.4s; }
-.hero-content p { animation-delay: 0.6s; }
-.btn { animation-delay: 0.8s; }
-/* =========================================
-   ULTRA-LUX TYPOGRAPHY POLISH
-   ========================================= */
+.hero-logo{ animation-delay:.2s; }
+.hero-content h1{ animation-delay:.4s; }
+.hero-content p{ animation-delay:.6s; }
+.btn{ animation-delay:.8s; }
 
-/* tighten hero headline */
-.hero-content h1{
-  font-weight: 600;
-  letter-spacing: 0.015em;
-  max-width: 820px;
+
+/* =========================================================
+   SCROLL REVEAL
+   ========================================================= */
+
+.reveal{
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity .7s ease, transform .7s ease;
 }
 
-/* soften hero paragraph */
-.hero-content p{
-  opacity: 0.72;
-  max-width: 520px;
+.reveal.reveal-in{
+  opacity:1;
+  transform:translateY(0);
 }
 
-/* refine section headline scale */
-.h1{
-  font-weight: 600;
-  letter-spacing: 0.01em;
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
 }
 
-/* subtle nav refinement */
-.nav-links a{
-  opacity: 0.7;
-}
 
-.nav-links a:hover{
-  opacity: 1;
-}
-/* =========================================
-   WEB FORM (CONTACT)
-   ========================================= */
+/* =========================================================
+   CONTACT FORM
+   ========================================================= */
 
 .webform .label{
   display:block;
@@ -309,21 +289,19 @@ a:hover{ color:#fff; }
 
 .webform .input{
   width:100%;
-  padding:12px 12px;
+  padding:12px;
   border-radius:14px;
-  border:1px solid rgba(255,255,255,0.14);
-  background:rgba(0,0,0,0.32);
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.32);
   color:#fff;
   outline:none;
 }
 
-.webform .input::placeholder{
-  color:rgba(255,255,255,0.35);
-}
+.webform .input::placeholder{ color:rgba(255,255,255,.35); }
 
 .webform .input:focus{
-  border-color:rgba(255,255,255,0.35);
-  background:rgba(0,0,0,0.38);
+  border-color:rgba(255,255,255,.35);
+  background:rgba(0,0,0,.38);
 }
 
 .webform .textarea{
@@ -331,9 +309,7 @@ a:hover{ color:#fff; }
   min-height:150px;
 }
 
-.webform .hp{
-  display:none !important;
-}
+.webform .hp{ display:none !important; }
 
 .form-actions{
   display:flex;
@@ -346,41 +322,24 @@ a:hover{ color:#fff; }
   font-size:12px;
   opacity:.6;
 }
-/* =========================================
-   CONTACT: ONSITE SUCCESS (NO REDIRECT)
-   ========================================= */
-
-.webform.is-hidden{
-  display:none;
-}
-
-.form-error{
-  margin-top:12px;
-  font-size:12px;
-  opacity:.85;
-  color: rgba(255,255,255,0.85);
-}
 
 .success-card{
   display:none;
   margin-top:14px;
   padding:22px;
   border-radius:18px;
-  border:1px solid rgba(255,255,255,0.12);
-  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  border:1px solid rgba(255,255,255,.12);
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
   box-shadow:0 18px 60px rgba(0,0,0,.35);
-  animation: heroFadeUp 0.8s ease forwards;
+  animation:heroFadeUp .8s ease forwards;
 }
 
-.success-card.is-visible{
-  display:block;
-}
+.success-card.is-visible{ display:block; }
 
 .success-title{
   font-size:18px;
   font-weight:600;
-  letter-spacing:0.01em;
-  margin:0 0 6px 0;
+  margin:0 0 6px;
 }
 
 .success-text{
@@ -388,23 +347,18 @@ a:hover{ color:#fff; }
   line-height:1.6;
 }
 
-/* keep button readable when disabled */
-.btn:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-  transform:none !important;
-}
 
-/* =========================================
+/* =========================================================
    FOOTER (PREMIUM)
-   ========================================= */
+   ========================================================= */
 
 .footer{
   margin-top:70px;
-  border-top:1px solid rgba(255,255,255,0.10);
-  background: radial-gradient(900px 520px at 50% 0%, rgba(255,255,255,0.06), transparent 60%),
-              rgba(0,0,0,0.6);
-  backdrop-filter: blur(10px);
+  border-top:1px solid rgba(255,255,255,.10);
+  background:
+    radial-gradient(900px 520px at 50% 0%, rgba(255,255,255,.06), transparent 60%),
+    rgba(0,0,0,.6);
+  backdrop-filter:blur(10px);
 }
 
 .footer-inner{
@@ -412,18 +366,26 @@ a:hover{ color:#fff; }
   margin:0 auto;
   padding:34px 24px 22px;
   display:grid;
-  grid-template-columns: 1.2fr 1.8fr;
+  grid-template-columns:1.2fr 1.8fr;
   gap:26px;
 }
 
+.footer-left{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* ✅ FIXED LOGO */
 .footer-logo{
-  height:22px;
+  width:140px;
+  height:auto;
+  max-width:180px;
   opacity:.9;
   display:block;
 }
 
 .footer-sub{
-  margin-top:10px;
   max-width:420px;
   font-size:13px;
   line-height:1.6;
@@ -432,7 +394,7 @@ a:hover{ color:#fff; }
 
 .footer-cols{
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:18px;
 }
 
@@ -444,17 +406,7 @@ a:hover{ color:#fff; }
   opacity:.78;
 }
 
-.footer-col a{
-  opacity:.78;
-}
-
-.footer-col a:hover{
-  opacity:1;
-}
-
-.footer-col span{
-  opacity:.70;
-}
+.footer-col a:hover{ opacity:1; }
 
 .footer-head{
   font-size:11px;
@@ -470,41 +422,26 @@ a:hover{ color:#fff; }
   padding:14px 24px 22px;
   font-size:12px;
   opacity:.55;
-  border-top:1px solid rgba(255,255,255,0.08);
+  border-top:1px solid rgba(255,255,255,.08);
 }
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width:900px){
-  .footer-inner{
-    grid-template-columns: 1fr;
-  }
-  .footer-cols{
-    grid-template-columns: 1fr;
-  }
-}
-.footer-left{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-/* =========================================
-   SCROLL REVEAL (SUBTLE / PREMIUM)
-   ========================================= */
 
-.reveal{
-  opacity:0;
-  transform: translateY(14px);
-  transition: opacity .7s ease, transform .7s ease;
-}
+  .hero-content{ padding:110px 20px 80px; }
 
-.reveal.reveal-in{
-  opacity:1;
-  transform: translateY(0);
-}
+  .hero-content h1{ font-size:38px; }
 
-@media (prefers-reduced-motion: reduce){
-  .reveal{
-    opacity:1 !important;
-    transform:none !important;
-    transition:none !important;
-  }
+  .h1{ font-size:34px; }
+
+  .col-6,
+  .col-4,
+  .col-8{ grid-column:span 12; }
+
+  .footer-inner{ grid-template-columns:1fr; }
+  .footer-cols{ grid-template-columns:1fr; }
 }
