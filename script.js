@@ -1,89 +1,102 @@
-// script.js — replace the entire file with this
+/* =========================================================
+   The Mauro Group — interactions
+   - Parallax (hero)
+   - Card glow follow
+   - Scroll reveal
+   ========================================================= */
 
 (() => {
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const prefersReduced =
+    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // ---------------------------------------
-  // Footer year (safe on all pages)
-  // ---------------------------------------
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  /* -------------------------------
+     HERO PARALLAX
+     ------------------------------- */
+  if (!prefersReduced) {
+    let raf = null;
 
-  // ---------------------------------------
-  // Scroll reveal (elements with .reveal)
-  // ---------------------------------------
-  const revealEls = Array.from(document.querySelectorAll(".reveal"));
-  if (revealEls.length && !reduceMotion) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("reveal-in");
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-    revealEls.forEach((el) => io.observe(el));
-  } else {
-    // If reduced-motion OR none found, just show them
-    revealEls.forEach((el) => el.classList.add("reveal-in"));
+    const setParallaxVars = (clientX, clientY) => {
+      // center = 0,0 — edges = +-1
+      const cx = (clientX / window.innerWidth) * 2 - 1;
+      const cy = (clientY / window.innerHeight) * 2 - 1;
+
+      // px/py in pixels (keep subtle)
+      const px = cx * 18;  // intensity
+      const py = cy * 14;
+
+      document.documentElement.style.setProperty("--px", `${px}px`);
+      document.documentElement.style.setProperty("--py", `${py}px`);
+    };
+
+    window.addEventListener("pointermove", (e) => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        setParallaxVars(e.clientX, e.clientY);
+        raf = null;
+      });
+    }, { passive: true });
   }
 
-  // ---------------------------------------
-  // HERO PARALLAX (homepage)
-  // Works if you have:
-  //  - .hero
-  //  - .hero-video (or a hero background element)
-  //  - .hero-overlay
-  //  - .hero-content
-  // ---------------------------------------
-  const hero = document.querySelector(".hero");
-  if (!hero || reduceMotion) return;
+  /* -------------------------------
+     CARD GLOW FOLLOW (premium)
+     ------------------------------- */
+  const cards = document.querySelectorAll(".card");
+  cards.forEach((card) => {
+    card.style.position = card.style.position || "relative";
+    card.style.overflow = "hidden";
 
-  const heroVideo = hero.querySelector(".hero-video");
-  const heroOverlay = hero.querySelector(".hero-overlay");
-  const heroContent = hero.querySelector(".hero-content");
+    // create glow layer
+    const glow = document.createElement("div");
+    glow.className = "card-glow";
+    glow.style.position = "absolute";
+    glow.style.inset = "0";
+    glow.style.pointerEvents = "none";
+    glow.style.opacity = "0";
+    glow.style.transition = "opacity 180ms ease";
+    glow.style.background =
+      "radial-gradient(420px 260px at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.10), transparent 60%)";
+    card.appendChild(glow);
 
-  // Helper to clamp values
-  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+    const move = (e) => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 100;
+      const y = ((e.clientY - r.top) / r.height) * 100;
+      glow.style.setProperty("--gx", `${x}%`);
+      glow.style.setProperty("--gy", `${y}%`);
+      glow.style.opacity = "1";
+    };
 
-  let ticking = false;
+    const leave = () => {
+      glow.style.opacity = "0";
+    };
 
-  const apply = () => {
-    ticking = false;
+    card.addEventListener("pointermove", move, { passive: true });
+    card.addEventListener("pointerleave", leave, { passive: true });
+  });
 
-    const rect = hero.getBoundingClientRect();
-    const vh = window.innerHeight || 1;
+  /* -------------------------------
+     SCROLL REVEAL
+     ------------------------------- */
+  const revealEls = document.querySelectorAll(".reveal");
 
-    // progress: 0 when hero top at top, 1 when hero has scrolled out
-    const progress = clamp((-rect.top) / (rect.height || 1), 0, 1);
+  if (!revealEls.length) return;
 
-    // Subtle depth layers
-    // Video moves slowest, overlay slightly, text slightly
-    const videoY = progress * 22;      // px
-    const overlayY = progress * 14;    // px
-    const contentY = progress * -10;   // px (slight lift as you scroll)
+  if (prefersReduced) {
+    revealEls.forEach((el) => el.classList.add("reveal-in"));
+    return;
+  }
 
-    if (heroVideo) heroVideo.style.transform = `translate3d(0, ${videoY}px, 0) scale(1.03)`;
-    if (heroOverlay) heroOverlay.style.transform = `translate3d(0, ${overlayY}px, 0)`;
-    if (heroContent) heroContent.style.transform = `translate3d(0, ${contentY}px, 0)`;
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("reveal-in");
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
 
-    // Add a tiny fade as it scrolls off
-    if (heroContent) heroContent.style.opacity = String(1 - progress * 0.25);
-  };
-
-  const onScroll = () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(apply);
-    }
-  };
-
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll, { passive: true });
-
-  // Initial run
-  apply();
+  revealEls.forEach((el) => io.observe(el));
 })();
