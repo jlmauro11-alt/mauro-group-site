@@ -294,3 +294,55 @@ a:hover{ color:#fff; }
 .nav-links a:hover{
   opacity: 1;
 }
+/* =========================================
+   WEB FORM (CONTACT)
+   ========================================= */
+
+.webform .label{
+  display:block;
+  font-size:12px;
+  opacity:.7;
+  margin:0 0 6px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.webform .input{
+  width:100%;
+  padding:12px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.14);
+  background:rgba(0,0,0,0.32);
+  color:#fff;
+  outline:none;
+}
+
+.webform .input::placeholder{
+  color:rgba(255,255,255,0.35);
+}
+
+.webform .input:focus{
+  border-color:rgba(255,255,255,0.35);
+  background:rgba(0,0,0,0.38);
+}
+
+.webform .textarea{
+  resize:vertical;
+  min-height:150px;
+}
+
+.webform .hp{
+  display:none !important;
+}
+
+.form-actions{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:14px;
+}
+
+.form-note{
+  font-size:12px;
+  opacity:.6;
+}
