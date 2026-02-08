@@ -1,26 +1,85 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Contact — The Mauro Group</title>
-<link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — The Mauro Group</title>
+  <meta name="description" content="Contact The Mauro Group." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="page">
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="index.html" aria-label="The Mauro Group">
+        <img src="assets/logo.png" alt="The Mauro Group" style="height:22px; opacity:.9;">
+      </a>
+      <nav class="nav-links">
+        <a href="about.html">About</a>
+        <a href="investments.html">Investments</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<header class="header">
-  <img src="assets/logo.png" class="nav-logo"/>
-  <nav>
-    <a href="about.html">About</a>
-    <a href="investments.html">Investments</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+  <main class="container">
+    <div class="kicker">Contact</div>
+    <h1 class="h1">Let’s talk.</h1>
+    <p class="lead">
+      Share a brief note and we’ll respond quickly. If you’re sending a deck, include the one-paragraph summary first.
+    </p>
 
-<main class="container">
-  <h1>Contact</h1>
-  <p>Email: info@themaurogroup.com</p>
-</main>
+    <div class="hr"></div>
 
+    <div class="grid">
+      <section class="card col-6">
+        <h3>Email</h3>
+        <p>
+          <a href="mailto:hello@themaurogroup.com">hello@themaurogroup.com</a>
+        </p>
+        <p style="margin-top:10px; opacity:.78;">
+          If you don’t have this inbox yet, tell me what email you want and we’ll wire it up.
+        </p>
+      </section>
+
+      <section class="card col-6">
+        <h3>What to send</h3>
+        <p>
+          1) One-paragraph summary<br>
+          2) What you’re raising / terms (if applicable)<br>
+          3) Links (deck, repo, traction)<br>
+          4) Best way to follow up
+        </p>
+      </section>
+
+      <section class="card col-12">
+        <h3>Short form</h3>
+        <p style="opacity:.78; margin-bottom:12px;">
+          (Optional) Use this for quick outreach. On Vercel static hosting it won’t send anywhere unless we wire a form backend.
+        </p>
+
+        <form action="mailto:hello@themaurogroup.com" method="post" enctype="text/plain">
+          <div class="grid">
+            <div class="card col-6" style="padding:14px;">
+              <label style="display:block; font-size:12px; opacity:.7; margin-bottom:6px;">Name</label>
+              <input name="name" type="text" style="width:100%; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.15); background:rgba(0,0,0,0.35); color:#fff;">
+            </div>
+
+            <div class="card col-6" style="padding:14px;">
+              <label style="display:block; font-size:12px; opacity:.7; margin-bottom:6px;">Email</label>
+              <input name="email" type="email" style="width:100%; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.15); background:rgba(0,0,0,0.35); color:#fff;">
+            </div>
+
+            <div class="card col-12" style="padding:14px;">
+              <label style="display:block; font-size:12px; opacity:.7; margin-bottom:6px;">Message</label>
+              <textarea name="message" rows="5" style="width:100%; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.15); background:rgba(0,0,0,0.35); color:#fff;"></textarea>
+              <button class="btn" type="submit">Send</button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
