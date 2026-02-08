@@ -1,26 +1,42 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Mauro Group</title>
-<link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Mauro Group</title>
+  <meta name="description" content="Private investment platform focused on AI, digital assets, life sciences, and space." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="index.html" aria-label="The Mauro Group">
+        <img src="assets/logo.png" alt="The Mauro Group" style="height:22px; opacity:.9;">
+      </a>
+      <nav class="nav-links">
+        <a href="about.html">About</a>
+        <a href="investments.html">Investments</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<section class="hero">
-  <video autoplay muted loop playsinline class="hero-video">
-    <source src="assets/hero.mp4" type="video/mp4">
-  </video>
-  <div class="hero-overlay"></div>
+  <section class="hero">
+    <!-- Optional: if you don't have a video, delete the <video> block -->
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="assets/hero.mp4" type="video/mp4">
+    </video>
 
-  <div class="hero-content">
-    <img src="assets/logo.png" class="hero-logo"/>
-    <h1>Building the Technologies That Define Tomorrow</h1>
-    <p>Private investment platform focused on AI, digital assets, life sciences, and space.</p>
-    <a href="about.html" class="btn">Enter</a>
-  </div>
-</section>
+    <div class="hero-overlay"></div>
 
+    <div class="hero-content">
+      <img src="assets/logo.png" class="hero-logo" alt="The Mauro Group">
+      <h1>Building the Technologies That Define Tomorrow</h1>
+      <p>Private investment platform focused on AI, digital assets, life sciences, and space.</p>
+      <a href="about.html" class="btn">Enter</a>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
 </body>
 </html>
