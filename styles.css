@@ -471,3 +471,36 @@ a:hover{ color:#fff; }
 .card:hover::before{
   opacity: 1;
 }
+/* =========================================
+   HERO PARALLAX (SUBTLE / CINEMATIC)
+   ========================================= */
+
+:root{
+  --px: 0px; /* parallax x */
+  --py: 0px; /* parallax y */
+}
+
+/* add gentle motion without breaking object-fit */
+.hero-video{
+  transform: translate3d(calc(var(--px) * -0.025), calc(var(--py) * -0.025), 0) scale(1.08);
+  will-change: transform;
+}
+
+.hero-overlay{
+  transform: translate3d(calc(var(--px) * -0.015), calc(var(--py) * -0.015), 0);
+  will-change: transform;
+}
+
+/* Optional: tiny parallax on hero text block (very subtle) */
+.hero-content{
+  transform: translate3d(calc(var(--px) * 0.006), calc(var(--py) * 0.006), 0);
+  will-change: transform;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .hero-video, .hero-overlay, .hero-content{
+    transform: none !important;
+    will-change: auto !important;
+  }
+}
