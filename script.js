@@ -1,4 +1,3 @@
-// Highlight active nav link based on current page
 (() => {
   const path = window.location.pathname.split("/").pop() || "index.html";
   document.querySelectorAll(".nav-links a").forEach(a => {
