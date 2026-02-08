@@ -486,3 +486,25 @@ a:hover{ color:#fff; }
   flex-direction:column;
   gap:10px;
 }
+/* =========================================
+   SCROLL REVEAL (SUBTLE / PREMIUM)
+   ========================================= */
+
+.reveal{
+  opacity:0;
+  transform: translateY(14px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.reveal-in{
+  opacity:1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+  }
+}
