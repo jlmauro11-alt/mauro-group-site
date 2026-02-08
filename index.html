@@ -1,83 +1,110 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Primary SEO -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Mauro Group — Building the Technologies That Define Tomorrow</title>
-  <meta name="description" content="The Mauro Group builds and backs high-leverage technologies across AI, software, and emerging infrastructure." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Mauro Group</title>
 
-  <!-- Canonical -->
-  <link rel="canonical" href="https://themaurogroup.com/" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <!-- Social (Open Graph) -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="The Mauro Group" />
-  <meta property="og:description" content="Building the Technologies That Define Tomorrow." />
-  <meta property="og:url" content="https://themaurogroup.com/" />
-  <meta property="og:image" content="https://themaurogroup.com/og.png" />
+    body {
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+    }
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="The Mauro Group" />
-  <meta name="twitter:description" content="Building the Technologies That Define Tomorrow." />
-  <meta name="twitter:image" content="https://themaurogroup.com/og.png" />
+    .hero {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
 
-  <!-- Favicon -->
-  <link rel="icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <meta name="theme-color" content="#0b0f14" />
+    .hero-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120%;
+      height: 120%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      opacity: 0.75;
+    }
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="./styles.css" />
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 0%, #000 85%);
+    }
 
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "The Mauro Group",
-    "url": "https://themaurogroup.com/",
-    "logo": "https://themaurogroup.com/og.png",
-    "sameAs": [],
-    "contactPoint": [{
-      "@type": "ContactPoint",
-      "contactType": "business inquiries",
-      "email": "info@themaurogroup.com"
-    }]
-  }
-  </script>
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 20px;
+      animation: fadeIn 2s ease forwards;
+      opacity: 0;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
-<body class="page page--gate">
-  <div class="bg"></div>
-  <div class="grain"></div>
 
-  <main class="gate">
-    <div class="gate__badge">The Mauro Group</div>
+<body>
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="assets/hero.mp4" type="video/mp4" />
+    </video>
 
-    <h1 class="gate__title">Building the Technologies<br/>That Define Tomorrow</h1>
-    <p class="gate__sub">
-      A thesis-driven group backing high-leverage software and frontier infrastructure.
-    </p>
+    <div class="hero-overlay"></div>
 
-    <div class="gate__actions">
-      <a class="btn btn--primary" href="./about.html">Enter</a>
-      <a class="btn btn--ghost" href="./contact.html">Contact</a>
+    <div class="hero-content">
+      <h1>Building the Technologies That Define Tomorrow</h1>
+      <p>
+        Advanced infrastructure, AI systems, and next-generation digital platforms.
+      </p>
     </div>
-
-    <div class="gate__meta">
-      <span>Selective.</span>
-      <span>Conviction-led.</span>
-      <span>Operator-minded.</span>
-    </div>
-  </main>
-
-  <footer class="footer footer--gate">
-    <div class="footer__inner">
-      <span>© <span id="year"></span> The Mauro Group</span>
-    </div>
-  </footer>
-
-   <script src="./script.js" defer></script>
+  </section>
 </body>
 </html>
