@@ -1,136 +1,202 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — The Mauro Group</title>
-  <meta name="description" content="The Mauro Group is a thesis-driven group building and backing technologies across AI, software, and emerging infrastructure." />
-  <link rel="canonical" href="https://themaurogroup.com/about.html" />
 
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="About — The Mauro Group" />
-  <meta property="og:description" content="Thesis-driven, conviction-led, operator-minded." />
-  <meta property="og:url" content="https://themaurogroup.com/about.html" />
-  <meta property="og:image" content="https://themaurogroup.com/og.png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="About — The Mauro Group" />
-  <meta name="twitter:description" content="Thesis-driven, conviction-led, operator-minded." />
-  <meta name="twitter:image" content="https://themaurogroup.com/og.png" />
+    body{
+      background:#000;
+      color:#fff;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
 
-  <link rel="icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <meta name="theme-color" content="#0b0f14" />
+    /* Background video */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .bg video{
+      position:absolute;
+      top:50%;
+      left:50%;
+      width:120%;
+      height:120%;
+      transform:translate(-50%,-50%);
+      object-fit:cover;
+      opacity:0.35;
+      filter: blur(0.2px);
+    }
+    .bg::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at center, rgba(0,0,0,0.15) 0%, #000 78%),
+        linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.85));
+    }
 
-  <link rel="stylesheet" href="./styles.css" />
+    /* Nav */
+    .nav{
+      position:fixed;
+      top:0; left:0; right:0;
+      z-index:10;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px 28px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.75), rgba(0,0,0,0));
+      backdrop-filter: blur(6px);
+    }
+    .brand{
+      text-decoration:none;
+      color:#fff;
+      font-weight:650;
+      letter-spacing:0.02em;
+      opacity:0.95;
+    }
+    .nav-links{
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
+    .nav-links a{
+      color:rgba(255,255,255,0.78);
+      text-decoration:none;
+      font-size:0.95rem;
+    }
+    .nav-links a:hover{ color:rgba(255,255,255,0.98); }
+
+    /* Layout */
+    .wrap{
+      position:relative;
+      z-index:2;
+      padding: 110px 18px 70px;
+      display:flex;
+      justify-content:center;
+    }
+    .panel{
+      width:min(980px, 100%);
+      border:1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(12px);
+      border-radius: 22px;
+      padding: 34px 30px;
+      box-shadow: 0 18px 60px rgba(0,0,0,0.45);
+      animation: fadeIn 700ms ease forwards;
+      opacity:0;
+      transform: translateY(10px);
+    }
+
+    h1{
+      font-size:2.2rem;
+      font-weight:700;
+      letter-spacing:-0.02em;
+      margin-bottom:12px;
+      line-height:1.15;
+    }
+    .sub{
+      font-size:1.05rem;
+      opacity:0.78;
+      line-height:1.6;
+      margin-bottom:22px;
+      max-width: 820px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+    .card{
+      border:1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      border-radius: 18px;
+      padding:16px 16px;
+    }
+    .card h3{
+      font-size:1.05rem;
+      margin-bottom:6px;
+      letter-spacing:-0.01em;
+    }
+    .card p{
+      font-size:0.98rem;
+      opacity:0.78;
+      line-height:1.55;
+    }
+
+    .footer{
+      margin-top:26px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      opacity:0.7;
+      font-size:0.9rem;
+    }
+
+    @keyframes fadeIn{ to{ opacity:1; transform: translateY(0);} }
+
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+      .nav{ padding: 14px 16px; }
+      .nav-links{ gap: 12px; }
+    }
+  </style>
 </head>
 
-<body class="page">
-  <div class="bg"></div>
-  <div class="grain"></div>
+<body>
+  <div class="bg">
+    <video autoplay muted loop playsinline>
+      <source src="assets/hero.mp4" type="video/mp4" />
+    </video>
+  </div>
 
   <header class="nav">
-    <div class="nav__inner">
-      <a class="brand" href="./index.html">
-        <span class="brand__mark"></span>
-        <span class="brand__text">The Mauro Group</span>
-      </a>
-      <nav class="nav__links">
-        <a class="nav__link is-active" href="./about.html">About</a>
-        <a class="nav__link" href="./investments.html">Investments</a>
-        <a class="nav__link" href="./contact.html">Contact</a>
-      </nav>
-    </div>
+    <a class="brand" href="index.html">The Mauro Group</a>
+    <nav class="nav-links">
+      <a href="about.html">About</a>
+      <a href="investments.html">Investments</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
 
-  <main class="container">
-    <section class="hero reveal">
-      <div class="hero__content">
-        <h1 class="h1">Thesis-driven. Operator-minded.</h1>
-        <p class="lead">
-          We build and back high-leverage technologies—especially where software compounds and
-          technical moats deepen over time.
-        </p>
+  <main class="wrap">
+    <section class="panel">
+      <h1>About The Mauro Group</h1>
+      <p class="sub">
+        We build and invest in technology platforms that compound: infrastructure, AI-native systems,
+        and digital products designed for durability and scale.
+      </p>
 
-        <div class="hero__chips">
-          <span class="chip">AI & Applied ML</span>
-          <span class="chip">Software Infrastructure</span>
-          <span class="chip">Emerging Protocols</span>
-          <span class="chip">Security & Reliability</span>
+      <div class="grid">
+        <div class="card">
+          <h3>Mission</h3>
+          <p>Design and deploy modern systems that simplify complexity and accelerate outcomes.</p>
+        </div>
+        <div class="card">
+          <h3>Approach</h3>
+          <p>Small teams, high standards, tight feedback loops, and a bias toward shipping.</p>
+        </div>
+        <div class="card">
+          <h3>Focus</h3>
+          <p>AI infrastructure, automation, secure architecture, and platform engineering.</p>
         </div>
       </div>
 
-      <div class="hero__panel card">
-        <h2 class="h3">How we engage</h2>
-        <ul class="list">
-          <li>Selective investments and strategic support</li>
-          <li>Founder-first, long-term orientation</li>
-          <li>Engineering & go-to-market perspective</li>
-          <li>Clear standards for rigor and execution</li>
-        </ul>
-        <a class="textlink" href="./contact.html">Start a conversation →</a>
-      </div>
-    </section>
-
-    <section class="section reveal">
-      <div class="section__header">
-        <h2 class="h2">Principles</h2>
-        <p class="muted">A simple operating system: high signal, high standards, low noise.</p>
-      </div>
-
-      <div class="grid grid--3">
-        <article class="card">
-          <h3 class="h4">Compounding advantage</h3>
-          <p class="muted">We favor products where iteration and distribution create durable edge.</p>
-        </article>
-        <article class="card">
-          <h3 class="h4">Technical depth</h3>
-          <p class="muted">We back teams who can ship fast without sacrificing fundamentals.</p>
-        </article>
-        <article class="card">
-          <h3 class="h4">Signal over hype</h3>
-          <p class="muted">Clear narratives matter—but reality, metrics, and execution decide.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section reveal">
-      <div class="section__header">
-        <h2 class="h2">Inbound guidelines</h2>
-        <p class="muted">If you reach out, include enough context to evaluate quickly.</p>
-      </div>
-
-      <div class="grid grid--2">
-        <article class="card">
-          <h3 class="h4">Include</h3>
-          <ul class="list">
-            <li>What you’re building and why now</li>
-            <li>Team background and technical differentiation</li>
-            <li>Traction, metrics, and timeline</li>
-            <li>What you want (capital, introductions, operating help)</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3 class="h4">Avoid</h3>
-          <ul class="list">
-            <li>Overly long decks without an executive summary</li>
-            <li>Unclear business model or vague problem definition</li>
-            <li>Hype-driven timelines with no evidence</li>
-            <li>Mass outreach with no fit</li>
-          </ul>
-        </article>
+      <div class="footer">
+        <span>© The Mauro Group</span>
+        <span><a href="contact.html" style="color:rgba(255,255,255,0.8); text-decoration:none;">Contact</a></span>
       </div>
     </section>
   </main>
-
-  <footer class="footer">
-    <div class="footer__inner container">
-      <span>© <span id="year"></span> The Mauro Group</span>
-      <span class="footer__sep">•</span>
-      <a class="footer__link" href="./contact.html">Contact</a>
-    </div>
-  </footer>
-
-  <script src="./script.js" defer></script>
 </body>
 </html>
