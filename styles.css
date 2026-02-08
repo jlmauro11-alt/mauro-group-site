@@ -481,3 +481,8 @@ a:hover{ color:#fff; }
     grid-template-columns: 1fr;
   }
 }
+.footer-left{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
