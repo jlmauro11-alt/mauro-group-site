@@ -1,102 +1,110 @@
 /* =========================================================
-   The Mauro Group — interactions
-   - Parallax (hero)
-   - Card glow follow
-   - Scroll reveal
+   The Mauro Group — script.js
+   - Footer year
+   - Scroll reveal (with stagger)
+   - Card cursor glow vars (--mx/--my) for CSS glow
+   - Hero parallax vars (--px/--py) for CSS parallax
    ========================================================= */
 
-(() => {
+/* -----------------------------
+   Footer year
+----------------------------- */
+(function setYear(){
+  const y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
+})();
+
+
+/* -----------------------------
+   Scroll reveal (staggered)
+   Add class="reveal" to any element you want animated.
+   Works best on cards/sections/blocks.
+----------------------------- */
+(function scrollReveal(){
   const prefersReduced =
     window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* -------------------------------
-     HERO PARALLAX
-     ------------------------------- */
-  if (!prefersReduced) {
-    let raf = null;
+  const els = Array.from(document.querySelectorAll(".reveal"));
+  if (!els.length) return;
 
-    const setParallaxVars = (clientX, clientY) => {
-      // center = 0,0 — edges = +-1
-      const cx = (clientX / window.innerWidth) * 2 - 1;
-      const cy = (clientY / window.innerHeight) * 2 - 1;
+  // Stagger: if a reveal element contains cards, stagger the cards.
+  const applyStagger = (root) => {
+    const cards = root.querySelectorAll(".card");
+    if (!cards.length) return;
+    cards.forEach((c, i) => {
+      c.style.transitionDelay = `${Math.min(i * 80, 320)}ms`; // 0ms..320ms
+    });
+  };
 
-      // px/py in pixels (keep subtle)
-      const px = cx * 18;  // intensity
-      const py = cy * 14;
-
-      document.documentElement.style.setProperty("--px", `${px}px`);
-      document.documentElement.style.setProperty("--py", `${py}px`);
-    };
-
-    window.addEventListener("pointermove", (e) => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        setParallaxVars(e.clientX, e.clientY);
-        raf = null;
-      });
-    }, { passive: true });
-  }
-
-  /* -------------------------------
-     CARD GLOW FOLLOW (premium)
-     ------------------------------- */
-  const cards = document.querySelectorAll(".card");
-  cards.forEach((card) => {
-    card.style.position = card.style.position || "relative";
-    card.style.overflow = "hidden";
-
-    // create glow layer
-    const glow = document.createElement("div");
-    glow.className = "card-glow";
-    glow.style.position = "absolute";
-    glow.style.inset = "0";
-    glow.style.pointerEvents = "none";
-    glow.style.opacity = "0";
-    glow.style.transition = "opacity 180ms ease";
-    glow.style.background =
-      "radial-gradient(420px 260px at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.10), transparent 60%)";
-    card.appendChild(glow);
-
-    const move = (e) => {
-      const r = card.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width) * 100;
-      const y = ((e.clientY - r.top) / r.height) * 100;
-      glow.style.setProperty("--gx", `${x}%`);
-      glow.style.setProperty("--gy", `${y}%`);
-      glow.style.opacity = "1";
-    };
-
-    const leave = () => {
-      glow.style.opacity = "0";
-    };
-
-    card.addEventListener("pointermove", move, { passive: true });
-    card.addEventListener("pointerleave", leave, { passive: true });
-  });
-
-  /* -------------------------------
-     SCROLL REVEAL
-     ------------------------------- */
-  const revealEls = document.querySelectorAll(".reveal");
-
-  if (!revealEls.length) return;
+  els.forEach(applyStagger);
 
   if (prefersReduced) {
-    revealEls.forEach((el) => el.classList.add("reveal-in"));
+    els.forEach(el => el.classList.add("reveal-in"));
     return;
   }
 
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("reveal-in");
-          io.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("reveal-in");
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
 
-  revealEls.forEach((el) => io.observe(el));
+  els.forEach(el => io.observe(el));
+})();
+
+
+/* -----------------------------
+   Card cursor glow
+   This powers your CSS:
+   .card::before { ... at var(--mx) var(--my) ... }
+----------------------------- */
+(function cardGlow(){
+  const cards = document.querySelectorAll(".card");
+  if (!cards.length) return;
+
+  cards.forEach(card => {
+    card.addEventListener("pointermove", (e) => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 100;
+      const y = ((e.clientY - r.top) / r.height) * 100;
+      card.style.setProperty("--mx", `${x}%`);
+      card.style.setProperty("--my", `${y}%`);
+    }, { passive: true });
+  });
+})();
+
+
+/* -----------------------------
+   Hero parallax
+   This sets CSS vars used in your styles.css:
+   :root { --px: 0px; --py: 0px; }
+----------------------------- */
+(function heroParallax(){
+  const prefersReduced =
+    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const hero = document.querySelector(".hero");
+  if (!hero || prefersReduced) return;
+
+  let raf = null;
+  let px = 0, py = 0;
+
+  const onMove = (e) => {
+    // Normalize movement around center of viewport
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    px = e.clientX - cx;
+    py = e.clientY - cy;
+
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      document.documentElement.style.setProperty("--px", `${px}px`);
+      document.documentElement.style.setProperty("--py", `${py}px`);
+      raf = null;
+    });
+  };
+
+  window.addEventListener("pointermove", onMove, { passive: true });
 })();
