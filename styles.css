@@ -346,3 +346,138 @@ a:hover{ color:#fff; }
   font-size:12px;
   opacity:.6;
 }
+/* =========================================
+   CONTACT: ONSITE SUCCESS (NO REDIRECT)
+   ========================================= */
+
+.webform.is-hidden{
+  display:none;
+}
+
+.form-error{
+  margin-top:12px;
+  font-size:12px;
+  opacity:.85;
+  color: rgba(255,255,255,0.85);
+}
+
+.success-card{
+  display:none;
+  margin-top:14px;
+  padding:22px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,0.12);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  box-shadow:0 18px 60px rgba(0,0,0,.35);
+  animation: heroFadeUp 0.8s ease forwards;
+}
+
+.success-card.is-visible{
+  display:block;
+}
+
+.success-title{
+  font-size:18px;
+  font-weight:600;
+  letter-spacing:0.01em;
+  margin:0 0 6px 0;
+}
+
+.success-text{
+  opacity:.75;
+  line-height:1.6;
+}
+
+/* keep button readable when disabled */
+.btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+  transform:none !important;
+}
+
+/* =========================================
+   FOOTER (PREMIUM)
+   ========================================= */
+
+.footer{
+  margin-top:70px;
+  border-top:1px solid rgba(255,255,255,0.10);
+  background: radial-gradient(900px 520px at 50% 0%, rgba(255,255,255,0.06), transparent 60%),
+              rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+}
+
+.footer-inner{
+  max-width:1120px;
+  margin:0 auto;
+  padding:34px 24px 22px;
+  display:grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap:26px;
+}
+
+.footer-logo{
+  height:22px;
+  opacity:.9;
+  display:block;
+}
+
+.footer-sub{
+  margin-top:10px;
+  max-width:420px;
+  font-size:13px;
+  line-height:1.6;
+  opacity:.65;
+}
+
+.footer-cols{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:18px;
+}
+
+.footer-col{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  font-size:13px;
+  opacity:.78;
+}
+
+.footer-col a{
+  opacity:.78;
+}
+
+.footer-col a:hover{
+  opacity:1;
+}
+
+.footer-col span{
+  opacity:.70;
+}
+
+.footer-head{
+  font-size:11px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  opacity:.6;
+  margin-bottom:6px;
+}
+
+.footer-bottom{
+  max-width:1120px;
+  margin:0 auto;
+  padding:14px 24px 22px;
+  font-size:12px;
+  opacity:.55;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+
+@media (max-width:900px){
+  .footer-inner{
+    grid-template-columns: 1fr;
+  }
+  .footer-cols{
+    grid-template-columns: 1fr;
+  }
+}
