@@ -34,67 +34,52 @@
         Send a note and we’ll respond quickly. If you have a deck or brief, include a link.
       </p>
 
-      <!-- Contact inputs -->
-      <div class="form">
+      <!-- PRODUCTION FORM -->
+      <form
+        class="form"
+        action="https://formspree.io/f/mbdajwlr"
+        method="POST"
+      >
+        <!-- Spam protection honeypot -->
+        <div style="display:none;">
+          <label>Leave this empty</label>
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <!-- Email subject -->
+        <input type="hidden" name="_subject" value="Mauro Group — Website inquiry" />
+
+        <!-- Redirect after submit -->
+        <input type="hidden" name="_next" value="/thank-you.html" />
+
         <div>
           <label for="name">Name</label>
-          <input id="name" type="text" placeholder="Your name" />
+          <input id="name" name="name" type="text" placeholder="Your name" required />
         </div>
 
         <div>
           <label for="email">Email</label>
-          <input id="email" type="email" placeholder="you@company.com" />
+          <input id="email" name="email" type="email" placeholder="you@company.com" required />
         </div>
 
         <div class="full">
           <label for="message">Message</label>
-          <textarea id="message" placeholder="What can we help with?"></textarea>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="What can we help with?"
+            required
+          ></textarea>
         </div>
 
         <div class="full actions">
-          <a class="btn primary" id="sendEmail" href="mailto:private0@themaurogroup.com">
-            Send Email
-          </a>
+          <button class="btn primary" type="submit">Send</button>
           <span class="hint">
-            This opens your email app and sends directly to private0@themaurogroup.com.
+            Delivered securely to private0@themaurogroup.com.
           </span>
         </div>
-      </div>
+      </form>
     </section>
   </main>
-
-  <!-- Safe mailto builder (Safari-compatible) -->
-  <script>
-    (function () {
-      const to = "private0@themaurogroup.com";
-      const link = document.getElementById("sendEmail");
-
-      function enc(v) {
-        return encodeURIComponent(v || "");
-      }
-
-      function updateMailto() {
-        const name = document.getElementById("name")?.value || "";
-        const email = document.getElementById("email")?.value || "";
-        const message = document.getElementById("message")?.value || "";
-
-        const subject = `Website inquiry${name ? " — " + name : ""}`;
-
-        const body =
-`Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-`;
-
-        link.href =
-          `mailto:${to}?subject=${enc(subject)}&body=${enc(body)}`;
-      }
-
-      // Build the email link right before opening mail
-      link.addEventListener("click", updateMailto);
-    })();
-  </script>
 </body>
 </html>
