@@ -61,10 +61,9 @@
           This form submits securely and sends to our inbox.
         </p>
 
-        <!-- REAL WEB FORM (Formspree) -->
-        <form class="webform" action="https://formspree.io/f/mbdajwlr" method="POST">
+        <!-- On-site success (no redirect) -->
+        <form class="webform" id="contactForm" action="https://formspree.io/f/mbdajwlr" method="POST">
           <input type="hidden" name="_subject" value="The Mauro Group — New website message" />
-          <!-- Honeypot spam trap (keep hidden / leave empty) -->
           <input type="text" name="_gotcha" class="hp" autocomplete="off" tabindex="-1" />
 
           <div class="grid">
@@ -83,25 +82,109 @@
               <textarea class="input textarea" id="message" name="message" rows="6" placeholder="How can we help?" required></textarea>
 
               <div class="form-actions">
-                <button class="btn" type="submit">Send</button>
-                <span class="form-note">We typically respond within 1–2 business days.</span>
+                <button class="btn" id="sendBtn" type="submit">Send</button>
+                <span class="form-note" id="formNote">We typically respond within 1–2 business days.</span>
               </div>
+
+              <div class="form-error" id="formError" role="alert" aria-live="polite"></div>
             </div>
           </div>
         </form>
+
+        <!-- Success card (hidden until submit succeeds) -->
+        <div class="success-card" id="successCard" aria-live="polite">
+          <div class="success-title">Message sent.</div>
+          <div class="success-text">Thanks — we’ll review and respond soon.</div>
+          <a class="btn" href="index.html" style="margin-top:18px;">Back to home</a>
+        </div>
+
       </section>
     </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer>
-    © <span id="year"></span> The Mauro Group. All rights reserved.
+  <!-- FOOTER (we’ll upgrade site-wide next) -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img src="assets/logo.png" alt="The Mauro Group" class="footer-logo">
+        <div class="footer-sub">Private investment platform focused on AI, digital assets, life sciences, and space.</div>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <div class="footer-head">Pages</div>
+          <a href="about.html">About</a>
+          <a href="investments.html">Investments</a>
+          <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-head">Focus</div>
+          <span>AI Infrastructure</span>
+          <span>Digital Assets</span>
+          <span>Life Sciences</span>
+          <span>Space Systems</span>
+        </div>
+
+        <div class="footer-col">
+          <div class="footer-head">Contact</div>
+          <a href="mailto:hello@themaurogroup.com">hello@themaurogroup.com</a>
+          <span>Confidential outreach welcome.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © <span id="year"></span> The Mauro Group. All rights reserved.
+    </div>
   </footer>
 
   <!-- SCRIPTS -->
   <script src="script.js"></script>
   <script>
+    // year
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // on-site Formspree submit (no redirect)
+    const form = document.getElementById("contactForm");
+    const btn = document.getElementById("sendBtn");
+    const note = document.getElementById("formNote");
+    const err = document.getElementById("formError");
+    const success = document.getElementById("successCard");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      err.textContent = "";
+      btn.disabled = true;
+      btn.textContent = "Sending…";
+      note.textContent = "Submitting securely…";
+
+      try {
+        const formData = new FormData(form);
+        const res = await fetch(form.action, {
+          method: "POST",
+          body: formData,
+          headers: { "Accept": "application/json" }
+        });
+
+        if (res.ok) {
+          form.reset();
+          form.classList.add("is-hidden");
+          success.classList.add("is-visible");
+        } else {
+          const data = await res.json().catch(() => ({}));
+          err.textContent = data?.errors?.[0]?.message || "Something went wrong. Please try again or email us directly.";
+          btn.disabled = false;
+          btn.textContent = "Send";
+          note.textContent = "We typically respond within 1–2 business days.";
+        }
+      } catch (ex) {
+        err.textContent = "Network error. Please try again or email us directly.";
+        btn.disabled = false;
+        btn.textContent = "Send";
+        note.textContent = "We typically respond within 1–2 business days.";
+      }
+    });
   </script>
 
 </body>
