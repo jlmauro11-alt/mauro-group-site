@@ -34,23 +34,16 @@
         Send a note and we’ll respond quickly. If you have a deck or brief, include a link.
       </p>
 
-      <!-- PRODUCTION FORM -->
-      <form
-        class="form"
-        action="https://formspree.io/f/mbdajwlr"
-        method="POST"
-      >
-        <!-- Spam protection honeypot -->
+      <!-- PRODUCTION FORM (AJAX submit to Formspree, then redirect to your thank-you page) -->
+      <form class="form" id="contactForm" method="POST" novalidate>
+        <!-- Spam honeypot -->
         <div style="display:none;">
           <label>Leave this empty</label>
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
         </div>
 
-        <!-- Email subject -->
+        <!-- Subject line in the email you receive -->
         <input type="hidden" name="_subject" value="Mauro Group — Website inquiry" />
-
-        <!-- Redirect after submit -->
-        <input type="hidden" name="_next" value="/thank-you.html" />
 
         <div>
           <label for="name">Name</label>
@@ -59,6 +52,7 @@
 
         <div>
           <label for="email">Email</label>
+          <!-- IMPORTANT: keep name="email" for autoresponses -->
           <input id="email" name="email" type="email" placeholder="you@company.com" required />
         </div>
 
@@ -73,13 +67,70 @@
         </div>
 
         <div class="full actions">
-          <button class="btn primary" type="submit">Send</button>
-          <span class="hint">
-            Delivered securely to private0@themaurogroup.com.
-          </span>
+          <button class="btn primary" id="submitBtn" type="submit">Send</button>
+          <span class="hint" id="formHint">Delivered securely to private0@themaurogroup.com.</span>
         </div>
       </form>
     </section>
   </main>
+
+  <script>
+    (function () {
+      const endpoint = "https://formspree.io/f/mbdajwlr";
+      const thankYouUrl = "/thank-you.html";
+
+      const form = document.getElementById("contactForm");
+      const btn = document.getElementById("submitBtn");
+      const hint = document.getElementById("formHint");
+
+      function setHint(text) {
+        if (hint) hint.textContent = text;
+      }
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        if (!form.checkValidity()) {
+          setHint("Please complete all required fields.");
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Sending…";
+        setHint("Sending securely…");
+
+        try {
+          const formData = new FormData(form);
+
+          const res = await fetch(endpoint, {
+            method: "POST",
+            body: formData,
+            headers: { "Accept": "application/json" }
+          });
+
+          if (res.ok) {
+            // Never show Formspree thank-you page.
+            window.location.assign(thankYouUrl);
+            return;
+          }
+
+          // If Formspree returns JSON errors, show a clean message.
+          let data = null;
+          try { data = await res.json(); } catch (_) {}
+
+          if (data && data.errors && data.errors.length) {
+            setHint(data.errors[0].message || "There was a problem sending your message.");
+          } else {
+            setHint("There was a problem sending your message. Please try again.");
+          }
+        } catch (err) {
+          setHint("Network error. Please try again.");
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "Send";
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
